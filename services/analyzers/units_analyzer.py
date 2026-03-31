@@ -1,4 +1,4 @@
-class units_analyzer:
+class UnitsAnalyzer:
     def __init__(self):
         self.total_units_sold = 0
 
