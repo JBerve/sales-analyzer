@@ -1,4 +1,4 @@
-class UnitsAnalizer:
+class UnitsAnalyzer:
     def process(self, sale):
         pass
 

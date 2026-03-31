@@ -1,7 +1,7 @@
 from data.csv_reader import read_sales
 from services.analyzers.revenue_analyzer import RevenueAnalyzer
 from services.analyzers.discount_analyzer import DiscountAnalyzer
-from services.analyzers.units_analyzer import UnitsAnalizer
+from services.analyzers.units_analyzer import UnitsAnalyzer
 
 def print_results(results):
     print("Sales analysis:\n")
@@ -13,11 +13,11 @@ def print_results(results):
     print(f"Average discount: {results['average_discount']}")
 
 def main():
-    filepath = input("Please, write the name of the file yo want to analyze: ")
+    filepath = input("Please, write the name of the file you want to analyze: ")
 
     revenue_analyzer = RevenueAnalyzer()
     discount_analyzer = DiscountAnalyzer()
-    units_analyzer = UnitsAnalizer()
+    units_analyzer = UnitsAnalyzer()
 
     analyzers = [
         revenue_analyzer,
@@ -25,16 +25,19 @@ def main():
         units_analyzer
     ]
 
-    for sale in read_sales(filepath):
+    try:
+        for sale in read_sales(filepath):
+            for analyzer in analyzers:
+                analyzer.process(sale)
+        results = {}
+
         for analyzer in analyzers:
-            analyzer.process(sale)
+            results.update(analyzer.results())
 
-    results = {}
-
-    for analyzer in analyzers:
-        results.update(analyzer.results())
-
-    print_results(results)
+        print_results(results)
+    
+    except (FileNotFoundError, IsADirectoryError):
+        print(f"Error: file '{filepath}' not found.")
 
 if __name__ == "__main__":
     main()
