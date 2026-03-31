@@ -12,9 +12,23 @@ def print_results(results):
     print(f"Revenue by Product Category: {results['revenue_by_category']}")
     print(f"Average discount: {results['average_discount']}")
 
-def main():
-    filepath = input("Please, write the name of the file you want to analyze: ")
+def ask_filename():
+    return input("Please, write the name of the file you want to analyze: ")
 
+def run_analysis(filepath, analyzers):
+    for sale in read_sales(filepath):
+        for analyzer in analyzers:
+            analyzer.process(sale)
+    result = {}
+
+    for analyzer in analyzers:
+        result.update(analyzer.results())
+    
+    return result
+
+def main():
+    filepath = ask_filename()
+    
     revenue_analyzer = RevenueAnalyzer()
     discount_analyzer = DiscountAnalyzer()
     units_analyzer = UnitsAnalyzer()
@@ -26,16 +40,8 @@ def main():
     ]
 
     try:
-        for sale in read_sales(filepath):
-            for analyzer in analyzers:
-                analyzer.process(sale)
-        results = {}
-
-        for analyzer in analyzers:
-            results.update(analyzer.results())
-
+        results = run_analysis(filepath, analyzers)
         print_results(results)
-    
     except (FileNotFoundError, IsADirectoryError):
         print(f"Error: file '{filepath}' not found.")
 
