@@ -14,12 +14,12 @@ class RevenueAnalyzer:
 
 
     def results(self):
-        top_sales_representatives = sorted(self.total_sales_representatives.items(), key=lambda x: x[1], reverse=True)
+        top_sales_representatives = sorted(self.total_sales_representatives.items(), key=lambda item: item[1], reverse=True)
         top_sales_representatives = top_sales_representatives[:3]
         return {
             "total_revenue": self.total_revenue,
             "revenue_by_region": self.revenue_by_region,
-            "top_sales_representatives": top_sales_representatives
+            "top_sales": top_sales_representatives
         }
 =======
     def process(self, sale):
