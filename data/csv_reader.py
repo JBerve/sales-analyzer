@@ -3,15 +3,15 @@ from domain.sale import Sale
 
 def read_sales(filepath):
     with open(filepath, newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
+        reader = csv.DictReader(file, delimiter=';')
 
         for row in reader:
             sale = Sale(
-                region=row["region"],
-                product_category=row["product_category"],
-                discount=float(row["discount"]),
-                revenue=float(row["revenue"]),
-                units_sold=int(row["units_sold"]),
-                sales_rep=row["sales_rep"]
+                region=row["Region"],
+                product_category=row["Product_Category"],
+                discount=float(row["Discount"]),
+                revenue=float(row["Sales_Amount"]),
+                units_sold=int(row["Quantity_Sold"]),
+                sales_rep=row["Sales_Rep"]
             )
             yield sale
