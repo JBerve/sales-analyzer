@@ -1,14 +1,16 @@
 class RevenueAnalyzer:
-<<<<<<< feature/revenue-analyzer
     def __init__(self):
         self.total_revenue = 0
         self.revenue_by_region = {}
         self.total_sales_representatives = {}
+        self.revenue_by_category = {}
 
     def process(self, sale):
         self.total_revenue += sale.revenue
 
         self.revenue_by_region[sale.region] = (self.revenue_by_region.get(sale.region, 0) + sale.revenue)
+
+        self.revenue_by_category[sale.product_category] = (self.revenue_by_category.get(sale.product_category, 0) + sale.revenue)
         
         self.total_sales_representatives[sale.sales_rep] = (self.total_sales_representatives.get(sale.sales_rep, 0) + sale.revenue)
 
@@ -19,17 +21,6 @@ class RevenueAnalyzer:
         return {
             "total_revenue": self.total_revenue,
             "revenue_by_region": self.revenue_by_region,
+            "revenue_by_category": self.revenue_by_category,
             "top_sales": top_sales_representatives
         }
-=======
-    def process(self, sale):
-        pass
-
-    def results(self):
-        return {
-            "total_revenue": 0,
-            "revenue_by_region": {},
-            "revenue_by_category": {},
-            "top_sales": []
-        }
->>>>>>> develop
